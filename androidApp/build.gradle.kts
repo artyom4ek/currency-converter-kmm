@@ -4,13 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = DefaultConfig.compileSdk
+    buildToolsVersion = DefaultConfig.buildToolsVersion
     defaultConfig {
-        applicationId = "com.paypay.currency_converter.android"
-        minSdk = 26
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = DefaultConfig.applicationId
+        minSdk = DefaultConfig.minSdk
+        targetSdk = DefaultConfig.targetSdk
+        versionCode = DefaultConfig.versionCode
+        versionName = DefaultConfig.versionName
     }
     buildTypes {
         getByName("release") {
@@ -27,9 +28,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    // Modules
+    implementation(project(Dependencies.Modules.shared))
 
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.appcompat:appcompat:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    // Core
+    implementation(Dependencies.Android.Core.coreKtx)
+    implementation(Dependencies.Android.Core.appCompat)
+    implementation(Dependencies.Android.Core.material)
+    implementation(Dependencies.Android.Core.constraintLayout)
 }

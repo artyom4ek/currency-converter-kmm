@@ -47,13 +47,14 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    compileSdk = DefaultConfig.compileSdk
+    buildToolsVersion = DefaultConfig.buildToolsVersion
     defaultConfig {
-        minSdk = 26
-        targetSdk = 32
+        minSdk = DefaultConfig.minSdk
+        targetSdk = DefaultConfig.targetSdk
     }
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
 dependencies {
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(Dependencies.Shared.jUnit)
 }
