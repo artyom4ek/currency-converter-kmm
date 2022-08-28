@@ -1,0 +1,9 @@
+object Versions {
+    const val kotlinPlugin = "1.7.0"
+    const val gradlePlugin = "7.2.2"
+    const val coreKtx = "1.7.0"
+    const val appCompat = "1.5.0"
+    const val material = "1.6.1"
+    const val constraintLayout = "2.1.4"
+    const val jUnit = "4.13.2"
+}
