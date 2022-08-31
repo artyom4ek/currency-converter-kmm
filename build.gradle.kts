@@ -1,12 +1,13 @@
 buildscript {
     repositories {
+        mavenCentral()
         gradlePluginPortal()
         google()
-        mavenCentral()
     }
     dependencies {
         classpath(Dependencies.Plugins.kotlin)
         classpath(Dependencies.Plugins.gradle)
+        classpath(Dependencies.Plugins.buildKonfig)
     }
 }
 
