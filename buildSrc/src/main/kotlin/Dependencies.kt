@@ -6,6 +6,7 @@ object Dependencies {
     object Plugins {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinPlugin}"
         const val gradle = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
+        const val buildKonfig = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
     }
 
     object Common {
@@ -15,6 +16,13 @@ object Dependencies {
 
         object Koin {
             const val core = "io.insert-koin:koin-core:${Versions.koin}"
+        }
+
+        object Ktor {
+            const val core = "io.ktor:ktor-client-core:${Versions.ktor}"
+            const val contentNegotiation =
+                "io.ktor:ktor-client-content-negotiation:${Versions.ktor}"
+            const val serialization = "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
         }
 
         object Test {
@@ -32,8 +40,14 @@ object Dependencies {
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModel}"
         }
 
+        object Ktor {
+            const val client = "io.ktor:ktor-client-android:${Versions.ktor}"
+        }
     }
 
     object Ios {
+        object Ktor {
+            const val client = "io.ktor:ktor-client-darwin:${Versions.ktor}"
+        }
     }
 }

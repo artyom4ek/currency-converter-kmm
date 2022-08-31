@@ -1,11 +1,15 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
+
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version Versions.serializationPlugin
+    id("com.codingfeline.buildkonfig")
     id("com.android.library")
 }
 
 kotlin {
     android()
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -21,6 +25,11 @@ kotlin {
             dependencies {
                 implementation(Dependencies.Common.Core.coroutines)
                 api(Dependencies.Common.Koin.core)
+                with(Dependencies.Common.Ktor) {
+                    implementation(core)
+                    implementation(contentNegotiation)
+                    implementation(serialization)
+                }
             }
         }
         val commonTest by getting {
@@ -31,6 +40,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Android.Core.viewModel)
+                implementation(Dependencies.Android.Ktor.client)
             }
         }
         val androidTest by getting
@@ -42,6 +52,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(Dependencies.Ios.Ktor.client)
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -55,6 +68,13 @@ kotlin {
     }
 }
 
+buildkonfig {
+    packageName = "com.paypay.currency_converter"
+    defaultConfigs {
+        buildConfigField(Type.STRING, "APP_ID", project.properties["APP_ID"].toString())
+    }
+}
+
 android {
     compileSdk = DefaultConfig.compileSdk
     buildToolsVersion = DefaultConfig.buildToolsVersion
@@ -64,6 +84,7 @@ android {
     }
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
+
 dependencies {
-    testImplementation(Dependencies.Shared.jUnit)
+    testImplementation(Dependencies.Common.Test.jUnit)
 }
