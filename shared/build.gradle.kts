@@ -23,7 +23,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Dependencies.Common.Core.coroutines)
+                with(Dependencies.Common.Core) {
+                    implementation(coroutines)
+                    implementation(multiplatformSettings)
+                }
                 api(Dependencies.Common.Koin.core)
                 with(Dependencies.Common.Ktor) {
                     implementation(core)

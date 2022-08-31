@@ -6,12 +6,16 @@ object Dependencies {
     object Plugins {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinPlugin}"
         const val gradle = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
-        const val buildKonfig = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
+        const val buildKonfig =
+            "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
     }
 
     object Common {
         object Core {
-            const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+            const val coroutines =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+            const val multiplatformSettings =
+                "com.russhwolf:multiplatform-settings-no-arg:${Versions.multiplatformSettings}"
         }
 
         object Koin {

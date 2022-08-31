@@ -4,12 +4,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 import com.paypay.currency_converter.data.api.currency.CurrencyApi
-import com.paypay.currency_converter.domain.model.ConvertedRate
-import com.paypay.currency_converter.domain.model.Currency
+import com.paypay.currency_converter.data.fileSystem.LocalSettings
+import com.paypay.currency_converter.domain.model.*
 import com.paypay.currency_converter.domain.repository.CurrencyRepository
 
 class CurrencyRepositoryImpl constructor(
     private val dispatcher: CoroutineDispatcher,
+    private val localSettings: LocalSettings,
     private val currencyApi: CurrencyApi,
 ) : CurrencyRepository {
 
@@ -22,6 +23,7 @@ class CurrencyRepositoryImpl constructor(
         selectedCurrency: String
     ): List<ConvertedRate> = withContext(dispatcher) {
         currencyApi.getLatestRates()
+        localSettings.latestUpdateTime
         return@withContext emptyList()
     }
 }

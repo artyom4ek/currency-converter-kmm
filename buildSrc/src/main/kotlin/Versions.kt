@@ -10,6 +10,7 @@ object Versions {
     const val viewModel = "2.5.1"
     const val ktor = "2.1.0"
     const val coroutines = "1.6.4"
+    const val multiplatformSettings = "0.9"
     const val jUnit = "4.13.2"
     const val koin = "3.2.0"
 }
