@@ -15,4 +15,5 @@ object Versions {
     const val koin = "3.2.0"
     const val sqlDelight = "1.5.3"
     const val dateTime = "0.4.0"
+    const val bigNum = "0.3.7"
 }
