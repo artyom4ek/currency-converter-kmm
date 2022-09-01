@@ -10,6 +10,7 @@ import com.russhwolf.settings.Settings
 import com.paypay.currency_converter.data.api.currency.*
 import com.paypay.currency_converter.data.api.provideHttpClient
 import com.paypay.currency_converter.data.fileSystem.LocalSettings
+import com.paypay.currency_converter.data.mapper.Mapper
 import com.paypay.currency_converter.data.repository.CurrencyRepositoryImpl
 import com.paypay.currency_converter.domain.repository.CurrencyRepository
 import com.paypay.currency_converter.domain.usecase.CurrencyUseCase
@@ -17,10 +18,11 @@ import com.paypay.currency_converter.viewModel.CurrencyViewModel
 
 fun commonModule() = module {
     factory { Settings() }
+    factory { Mapper() }
     single { LocalSettings(get()) }
     factory { provideHttpClient() }
     single<CurrencyApi> { CurrencyApiImpl(get()) }
-    single<CurrencyRepository> { CurrencyRepositoryImpl(Dispatchers.Default, get(), get(), get()) }
+    single<CurrencyRepository> { CurrencyRepositoryImpl(Dispatchers.Default, get(),get(), get(), get()) }
     factory { CurrencyUseCase(get()) }
     single { CurrencyViewModel(get()) }
 }

@@ -15,6 +15,10 @@ object Dependencies {
         object Core {
             const val coroutines =
                 "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+            const val dateTime =
+                "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.dateTime}"
+            const val bigNum =
+                "com.ionspin.kotlin:bignum:${Versions.bigNum}"
             const val multiplatformSettings =
                 "com.russhwolf:multiplatform-settings-no-arg:${Versions.multiplatformSettings}"
         }

@@ -1,13 +1,13 @@
-CREATE TABLE rates (
-  name INTEGER NOT NULL PRIMARY KEY,
-  value REAL NOT NULL
+CREATE TABLE RateEntity (
+  name TEXT NOT NULL PRIMARY KEY,
+  currentValue REAL NOT NULL
 );
 
-selectAll:
-SELECT * FROM rates ORDER BY name;
+getRates:
+SELECT * FROM RateEntity ORDER BY name;
 
-insert:
-INSERT INTO rates VALUES ?;
+insertRate:
+INSERT INTO RateEntity VALUES ?;
 
-deleteAll:
-DELETE FROM rates;
+deleteRates:
+DELETE FROM RateEntity;
