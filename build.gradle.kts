@@ -5,9 +5,12 @@ buildscript {
         google()
     }
     dependencies {
-        classpath(Dependencies.Plugins.kotlin)
-        classpath(Dependencies.Plugins.gradle)
-        classpath(Dependencies.Plugins.buildKonfig)
+        with(Dependencies.Plugins) {
+            classpath(kotlin)
+            classpath(gradle)
+            classpath(buildKonfig)
+            classpath(sqlDelight)
+        }
     }
 }
 

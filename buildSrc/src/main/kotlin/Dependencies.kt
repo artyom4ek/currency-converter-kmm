@@ -8,6 +8,7 @@ object Dependencies {
         const val gradle = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
         const val buildKonfig =
             "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
+        const val sqlDelight = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
     }
 
     object Common {
@@ -29,6 +30,10 @@ object Dependencies {
             const val serialization = "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
         }
 
+        object SqlDelight {
+            const val runtime = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
+        }
+
         object Test {
             const val jUnit = "junit:junit:${Versions.jUnit}"
         }
@@ -47,11 +52,20 @@ object Dependencies {
         object Ktor {
             const val client = "io.ktor:ktor-client-android:${Versions.ktor}"
         }
+
+        object SqlDelight {
+            const val androidDriver =
+                "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
+        }
     }
 
     object Ios {
         object Ktor {
             const val client = "io.ktor:ktor-client-darwin:${Versions.ktor}"
+        }
+
+        object SqlDelight {
+            const val nativeDriver = "com.squareup.sqldelight:native-driver:${Versions.sqlDelight}"
         }
     }
 }

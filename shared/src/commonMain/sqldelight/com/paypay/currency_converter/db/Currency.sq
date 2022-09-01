@@ -1,0 +1,13 @@
+CREATE TABLE rates (
+  name INTEGER NOT NULL PRIMARY KEY,
+  value REAL NOT NULL
+);
+
+selectAll:
+SELECT * FROM rates ORDER BY name;
+
+insert:
+INSERT INTO rates VALUES ?;
+
+deleteAll:
+DELETE FROM rates;
