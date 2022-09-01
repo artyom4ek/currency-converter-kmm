@@ -27,6 +27,7 @@ kotlin {
             dependencies {
                 with(Dependencies.Common.Core) {
                     implementation(coroutines)
+                    implementation(dateTime)
                     implementation(multiplatformSettings)
                 }
                 api(Dependencies.Common.Koin.core)
