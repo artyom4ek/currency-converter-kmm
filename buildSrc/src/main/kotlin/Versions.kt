@@ -13,4 +13,5 @@ object Versions {
     const val multiplatformSettings = "0.9"
     const val jUnit = "4.13.2"
     const val koin = "3.2.0"
+    const val sqlDelight = "1.5.3"
 }

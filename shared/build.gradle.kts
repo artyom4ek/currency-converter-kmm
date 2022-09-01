@@ -4,21 +4,23 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version Versions.serializationPlugin
     id("com.codingfeline.buildkonfig")
+    id("com.squareup.sqldelight")
     id("com.android.library")
 }
 
 kotlin {
     android()
+    ios()
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-        }
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
+    if (onPhone) {
+        iosArm64("ios")
+    } else {
+        iosX64("ios")
     }
+
+    // iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
 
     sourceSets {
         val commonMain by getting {
@@ -33,40 +35,30 @@ kotlin {
                     implementation(contentNegotiation)
                     implementation(serialization)
                 }
+                implementation(Dependencies.Common.SqlDelight.runtime)
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+        val commonTest by getting
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Android.Core.viewModel)
                 implementation(Dependencies.Android.Ktor.client)
+                implementation(Dependencies.Android.SqlDelight.androidDriver)
             }
         }
         val androidTest by getting
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+        val iosMain by getting {
             dependencies {
                 implementation(Dependencies.Ios.Ktor.client)
+                implementation(Dependencies.Ios.SqlDelight.nativeDriver)
             }
         }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
     }
 }
@@ -75,6 +67,13 @@ buildkonfig {
     packageName = "com.paypay.currency_converter"
     defaultConfigs {
         buildConfigField(Type.STRING, "APP_ID", project.properties["APP_ID"].toString())
+    }
+}
+
+sqldelight {
+    database("CurrencyDatabase") {
+        packageName = "com.paypay.currency_converter.db"
+        sourceFolders = listOf("sqldelight")
     }
 }
 
