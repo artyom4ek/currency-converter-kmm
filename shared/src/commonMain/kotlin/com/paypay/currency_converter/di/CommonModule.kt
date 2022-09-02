@@ -22,7 +22,16 @@ fun commonModule() = module {
     single { LocalSettings(get()) }
     factory { provideHttpClient() }
     single<CurrencyApi> { CurrencyApiImpl(get()) }
-    single<CurrencyRepository> { CurrencyRepositoryImpl(Dispatchers.Default, get(),get(), get(), get()) }
+    single<CurrencyRepository> {
+        CurrencyRepositoryImpl(
+            Dispatchers.Default,
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
     factory { CurrencyUseCase(get()) }
     single { CurrencyViewModel(get()) }
 }
