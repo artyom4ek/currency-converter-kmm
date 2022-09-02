@@ -12,19 +12,35 @@ import com.paypay.currency_converter.db.CurrencyDatabase
 import com.paypay.currency_converter.domain.model.*
 import com.paypay.currency_converter.domain.repository.CurrencyRepository
 import com.paypay.currency_converter.utils.ConstUtils
+import com.paypay.currency_converter.utils.CurrencyUtils.Companion.currencies
+import com.paypay.currency_converter.utils.Language
+import com.paypay.currency_converter.utils.Languages
 import com.paypay.currencyconverter.db.RateEntity
 
 class CurrencyRepositoryImpl constructor(
     private val dispatcher: CoroutineDispatcher,
     private val localSettings: LocalSettings,
+    private val language: Language,
     private val db: CurrencyDatabase,
     private val mapper: Mapper,
     private val currencyApi: CurrencyApi,
 ) : CurrencyRepository {
 
-    override suspend fun fetchCurrencies(): List<Currency> = withContext(dispatcher) {
-        return@withContext listOf(Currency("UAH", "Ukrainian Hryvnia"))
-    }
+    override suspend fun fetchCurrencies(): List<Currency> =
+        withContext(dispatcher) {
+            return@withContext currencies.map {
+                val name = it.key
+                val description = when (language) {
+                    Languages.JA.lang -> {
+                        it.value.ja
+                    }
+                    else -> {
+                        it.value.en
+                    }
+                }
+                Currency(name, description)
+            }
+        }
 
     override suspend fun fetchConvertedRates(
         enteredAmount: Double,
