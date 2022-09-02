@@ -4,8 +4,8 @@ object Dependencies {
     }
 
     object Plugins {
-        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinPlugin}"
-        const val gradle = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
+        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
         const val buildKonfig =
             "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
         const val sqlDelight = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
@@ -46,10 +46,7 @@ object Dependencies {
     object Android {
         object Core {
             const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
-            const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
-            const val material = "com.google.android.material:material:${Versions.material}"
-            const val constraintLayout =
-                "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+            const val activityKtx = "androidx.activity:activity-ktx:${Versions.activityKtx}"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModel}"
         }
 
@@ -60,6 +57,17 @@ object Dependencies {
         object SqlDelight {
             const val androidDriver =
                 "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
+        }
+
+        object Compose {
+            const val activityCompose =
+                "androidx.activity:activity-compose:${Versions.activityCompose}"
+            const val compiler = "androidx.compose.compiler:compiler:${Versions.composeCompiler}"
+            const val runtime = "androidx.compose.runtime:runtime:${Versions.composeRuntime}"
+            const val material = "androidx.compose.material:material:${Versions.compose}"
+            const val foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
+            const val ui = "androidx.compose.ui:ui:${Versions.compose}"
+            const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
         }
     }
 

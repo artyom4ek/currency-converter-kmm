@@ -2,7 +2,7 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version Versions.serializationPlugin
+    kotlin("plugin.serialization") version Versions.kotlin
     id("com.codingfeline.buildkonfig")
     id("com.squareup.sqldelight")
     id("com.android.library")
@@ -43,9 +43,19 @@ kotlin {
         val commonTest by getting
         val androidMain by getting {
             dependencies {
-                implementation(Dependencies.Android.Core.viewModel)
+                with(Dependencies.Android.Core) {
+                    implementation(coreKtx)
+                    implementation(viewModel)
+                }
                 implementation(Dependencies.Android.Ktor.client)
                 implementation(Dependencies.Android.SqlDelight.androidDriver)
+                with(Dependencies.Android.Compose) {
+                    implementation(activityCompose)
+                    implementation(ui)
+                    implementation(uiTooling)
+                    implementation(material)
+                    implementation(foundation)
+                }
             }
         }
         val androidTest by getting

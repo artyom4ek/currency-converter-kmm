@@ -18,6 +18,12 @@ android {
             isMinifyEnabled = false
         }
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.composeCompiler
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -32,8 +38,7 @@ dependencies {
     implementation(project(Dependencies.Modules.shared))
 
     // Core
-    implementation(Dependencies.Android.Core.coreKtx)
-    implementation(Dependencies.Android.Core.appCompat)
-    implementation(Dependencies.Android.Core.material)
-    implementation(Dependencies.Android.Core.constraintLayout)
+    implementation(Dependencies.Android.Core.activityKtx)
+    implementation(Dependencies.Android.Compose.runtime)
+    implementation(Dependencies.Android.Compose.compiler)
 }
