@@ -6,9 +6,10 @@
         android:name=".core.App"
         android:allowBackup="false"
         android:label="Currency Converter"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name="com.paypay.currency_converter.android.ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

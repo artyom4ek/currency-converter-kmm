@@ -49,13 +49,6 @@ kotlin {
                 }
                 implementation(Dependencies.Android.Ktor.client)
                 implementation(Dependencies.Android.SqlDelight.androidDriver)
-                with(Dependencies.Android.Compose) {
-                    implementation(activityCompose)
-                    implementation(ui)
-                    implementation(uiTooling)
-                    implementation(material)
-                    implementation(foundation)
-                }
             }
         }
         val androidTest by getting

@@ -39,6 +39,14 @@ dependencies {
 
     // Core
     implementation(Dependencies.Android.Core.activityKtx)
-    implementation(Dependencies.Android.Compose.runtime)
-    implementation(Dependencies.Android.Compose.compiler)
+
+    with(Dependencies.Android.Compose) {
+        implementation(runtime)
+        implementation(compiler)
+        implementation(activityCompose)
+        implementation(ui)
+        implementation(uiTooling)
+        implementation(material)
+        implementation(foundation)
+    }
 }
