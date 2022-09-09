@@ -18,6 +18,12 @@ android {
             isMinifyEnabled = false
         }
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.composeCompiler
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -32,8 +38,15 @@ dependencies {
     implementation(project(Dependencies.Modules.shared))
 
     // Core
-    implementation(Dependencies.Android.Core.coreKtx)
-    implementation(Dependencies.Android.Core.appCompat)
-    implementation(Dependencies.Android.Core.material)
-    implementation(Dependencies.Android.Core.constraintLayout)
+    implementation(Dependencies.Android.Core.activityKtx)
+
+    with(Dependencies.Android.Compose) {
+        implementation(runtime)
+        implementation(compiler)
+        implementation(activityCompose)
+        implementation(ui)
+        implementation(uiTooling)
+        implementation(material)
+        implementation(foundation)
+    }
 }
