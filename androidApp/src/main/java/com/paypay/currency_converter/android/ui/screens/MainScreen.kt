@@ -1,13 +1,16 @@
 package com.paypay.currency_converter.android.ui.screens
 
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +34,7 @@ import com.paypay.currency_converter.android.R
 @Composable
 fun MainScreen() {
     val localFocusManager = LocalFocusManager.current
+    
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -51,8 +55,18 @@ fun MainScreen() {
                 .fillMaxWidth()
                 .padding(vertical = 20.dp)
         )
-        Row {
-            CurrencyAmountInput(localFocusManager)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            Arrangement.spacedBy(10.dp)
+        ) {
+            Box(Modifier.weight(1f)) {
+                CurrencyAmountInput(localFocusManager)
+            }
+            Box(Modifier.weight(0.4f)) {
+                CurrencyList {
+                    Log.i("test", it)
+                }
+            }
         }
     }
 }
@@ -65,13 +79,10 @@ fun CurrencyAmountInput(localFocusManager: FocusManager) {
 
     OutlinedTextField(
         value = textState.value,
-        shape = RoundedCornerShape(percent = 10),
         singleLine = true,
         onValueChange = {
             textState.value = it
         },
-        modifier = Modifier
-            .fillMaxWidth(),
         placeholder = {
             Text(text = stringResource(R.string.amount_placeholder))
         },
@@ -94,6 +105,60 @@ fun CurrencyAmountInput(localFocusManager: FocusManager) {
             }
         },
     )
+}
+
+@Composable
+fun CurrencyList(onClick: (currencyValue: String) -> Unit) {
+    val currencies = listOf("USD", "UAH", "EUR", "JPY")
+    val expanded = remember { mutableStateOf(false) }
+    val selectedItem = remember { mutableStateOf(currencies[0]) }
+
+    Box {
+        Column {
+            OutlinedTextField(
+                value = (selectedItem.value),
+                onValueChange = { },
+                singleLine = true,
+                trailingIcon = { Icon(Icons.Outlined.ArrowDropDown, null) },
+                readOnly = true
+            )
+            DropdownMenu(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(0.dp, 500.dp),
+                expanded = expanded.value,
+                onDismissRequest = { expanded.value = false },
+            ) {
+                currencies.forEach { value ->
+                    DropdownMenuItem(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {
+                            selectedItem.value = value
+                            expanded.value = false
+                            onClick(value)
+                        },
+                        content = {
+                            Text(
+                                text = (value),
+                                modifier = Modifier
+                                    .wrapContentWidth()
+                            )
+                        }
+                    )
+                }
+            }
+        }
+
+        Spacer(
+            modifier = Modifier
+                .matchParentSize()
+                .background(Color.Transparent)
+                .padding(10.dp)
+                .clickable(
+                    onClick = { expanded.value = !expanded.value }
+                )
+        )
+    }
 }
 
 @Preview(showBackground = true)
