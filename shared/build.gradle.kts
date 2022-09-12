@@ -1,5 +1,3 @@
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
-
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version Versions.kotlin
@@ -10,17 +8,40 @@ plugins {
 
 kotlin {
     android()
-    ios()
+    ios {
+        binaries {
+            framework {
+                baseName = "shared"
+            }
+        }
+    }
 
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
-        iosArm64("ios")
+        iosArm64("ios") {
+            binaries {
+                framework {
+                    baseName = "shared"
+                }
+            }
+        }
     } else {
-        iosX64("ios")
+        iosX64("ios") {
+            binaries {
+                framework {
+                    baseName = "shared"
+                }
+            }
+        }
     }
 
-    // iosSimulatorArm64 target requires that all dependencies have M1 support
-    iosSimulatorArm64()
+    iosSimulatorArm64 {
+        binaries {
+            framework {
+                baseName = "shared"
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
