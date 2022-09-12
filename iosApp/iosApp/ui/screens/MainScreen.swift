@@ -2,7 +2,9 @@ import SwiftUI
 import shared
 
 struct MainScreen: View {
+    var currencies = ["USD", "UAH", "EUR", "JPY"]
     @State private var amountCurrency = ""
+    @State private var selectedFrameworkIndex = 0
     
 	var body: some View {
         VStack (alignment: .center) {
@@ -18,6 +20,13 @@ struct MainScreen: View {
                 .keyboardType(.decimalPad)
                 .font(.title3)
                 .padding(5)
+                
+                Picker(selection: $selectedFrameworkIndex, label: Text("")) {
+                    ForEach(0 ..< currencies.count, id: \.self) {
+                        Text(self.currencies[$0])
+                        
+                    }
+                }
             }
             Button("Convert") {
                 print($amountCurrency.wrappedValue)
