@@ -25,7 +25,7 @@ class CurrencyViewModel constructor(
 
     private fun initCurrencies() {
         coroutineScope.launch {
-
+            _currencies.emit(currencyUseCase.fetchCurrencies())
         }
     }
 

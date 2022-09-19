@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,11 +35,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+import org.koin.androidx.compose.get
+
 import com.paypay.currency_converter.android.R
 import com.paypay.currency_converter.domain.model.ConvertedRate
+import com.paypay.currency_converter.domain.model.Currency
+import com.paypay.currency_converter.viewModel.CurrencyViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    viewModel: CurrencyViewModel = get()
+) {
+    val currencies = viewModel.currencies.collectAsState().value
     val localFocusManager = LocalFocusManager.current
 
     Column(
@@ -50,7 +58,6 @@ fun MainScreen() {
                     localFocusManager.clearFocus()
                 })
             }
-
     ) {
         Text(
             text = stringResource(R.string.app_name),
@@ -69,8 +76,10 @@ fun MainScreen() {
                 CurrencyAmountInput(localFocusManager)
             }
             Box(Modifier.weight(0.4f)) {
-                CurrencyList {
-                    Log.i("test", it)
+                currencies?.let {
+                    CurrencyList(it) { selectedItem ->
+                        Log.i("test", selectedItem)
+                    }
                 }
             }
         }
@@ -123,15 +132,14 @@ fun CurrencyAmountInput(localFocusManager: FocusManager) {
 }
 
 @Composable
-fun CurrencyList(onClick: (currencyValue: String) -> Unit) {
-    val currencies = listOf("USD", "UAH", "EUR", "JPY")
+fun CurrencyList(currencies: List<Currency>, onClick: (currencyValue: String) -> Unit) {
     val expanded = remember { mutableStateOf(false) }
     val selectedItem = remember { mutableStateOf(currencies[0]) }
 
     Box {
         Column {
             OutlinedTextField(
-                value = (selectedItem.value),
+                value = (selectedItem.value.name),
                 onValueChange = { },
                 singleLine = true,
                 trailingIcon = { Icon(Icons.Outlined.ArrowDropDown, null) },
@@ -151,11 +159,11 @@ fun CurrencyList(onClick: (currencyValue: String) -> Unit) {
                         onClick = {
                             selectedItem.value = value
                             expanded.value = false
-                            onClick(value)
+                            onClick(value.name)
                         },
                         content = {
                             Text(
-                                text = (value),
+                                text = (value.name + " (" + value.description + ")"),
                                 modifier = Modifier
                                     .wrapContentWidth()
                             )

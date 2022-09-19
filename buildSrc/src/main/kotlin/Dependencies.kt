@@ -69,6 +69,11 @@ object Dependencies {
             const val ui = "androidx.compose.ui:ui:${Versions.compose}"
             const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
         }
+
+        object Koin {
+            const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+            const val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
+        }
     }
 
     object Ios {

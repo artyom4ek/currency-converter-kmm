@@ -8,22 +8,22 @@ import com.paypay.currency_converter.data.api.currency.CurrencyApi
 import com.paypay.currency_converter.data.entity.LatestRateDto
 import com.paypay.currency_converter.data.fileSystem.LocalSettings
 import com.paypay.currency_converter.data.mapper.Mapper
-import com.paypay.currency_converter.db.CurrencyDatabase
 import com.paypay.currency_converter.domain.model.*
 import com.paypay.currency_converter.domain.repository.CurrencyRepository
 import com.paypay.currency_converter.utils.ConstUtils
 import com.paypay.currency_converter.utils.CurrencyUtils.Companion.currencies
 import com.paypay.currency_converter.utils.Language
 import com.paypay.currency_converter.utils.Languages
+import com.paypay.currencyconverter.db.CurrencyQueries
 import com.paypay.currencyconverter.db.RateEntity
 
 class CurrencyRepositoryImpl constructor(
     private val dispatcher: CoroutineDispatcher,
     private val localSettings: LocalSettings,
     private val language: Language,
-    private val db: CurrencyDatabase,
+    private val currencyQueries: CurrencyQueries,
     private val mapper: Mapper,
-    private val currencyApi: CurrencyApi,
+    private val currencyApi: CurrencyApi
 ) : CurrencyRepository {
 
     override suspend fun fetchCurrencies(): List<Currency> =
@@ -46,8 +46,6 @@ class CurrencyRepositoryImpl constructor(
         enteredAmount: Double,
         selectedCurrency: String
     ): List<ConvertedRate> = withContext(dispatcher) {
-        val currencyQueries = db.currencyQueries
-
         val currentTime = Clock.System.now().toEpochMilliseconds()
         val latestUpdateTime = localSettings.latestUpdateTime
 
