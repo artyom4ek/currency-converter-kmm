@@ -52,6 +52,7 @@ object Dependencies {
 
         object Ktor {
             const val client = "io.ktor:ktor-client-android:${Versions.ktor}"
+            const val okHttp = "io.ktor:ktor-client-okhttp:${Versions.ktor}"
         }
 
         object SqlDelight {
@@ -68,6 +69,11 @@ object Dependencies {
             const val foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
             const val ui = "androidx.compose.ui:ui:${Versions.compose}"
             const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+        }
+
+        object Koin {
+            const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+            const val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
         }
     }
 

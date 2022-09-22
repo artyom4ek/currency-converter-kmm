@@ -40,6 +40,7 @@ dependencies {
     // Core
     implementation(Dependencies.Android.Core.activityKtx)
 
+    // Compose
     with(Dependencies.Android.Compose) {
         implementation(runtime)
         implementation(compiler)
@@ -48,5 +49,11 @@ dependencies {
         implementation(uiTooling)
         implementation(material)
         implementation(foundation)
+    }
+
+    // Koin
+    with(Dependencies.Android.Koin) {
+        implementation(koinAndroid)
+        implementation(compose)
     }
 }
