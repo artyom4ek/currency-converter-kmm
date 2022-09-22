@@ -52,6 +52,7 @@ object Dependencies {
 
         object Ktor {
             const val client = "io.ktor:ktor-client-android:${Versions.ktor}"
+            const val okHttp = "io.ktor:ktor-client-okhttp:${Versions.ktor}"
         }
 
         object SqlDelight {

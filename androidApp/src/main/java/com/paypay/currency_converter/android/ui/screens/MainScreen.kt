@@ -1,6 +1,5 @@
 package com.paypay.currency_converter.android.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -13,10 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.outlined.ArrowDropDown
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -35,6 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+import kotlinx.coroutines.launch
+
 import org.koin.androidx.compose.get
 
 import com.paypay.currency_converter.android.R
@@ -46,7 +44,13 @@ import com.paypay.currency_converter.viewModel.CurrencyViewModel
 fun MainScreen(
     viewModel: CurrencyViewModel = get()
 ) {
+    val state = viewModel.state.collectAsState(CurrencyViewModel.State.INIT).value
     val currencies = viewModel.currencies.collectAsState().value
+    val convertedRates = viewModel.convertedRates.collectAsState().value
+
+    val currencyState = remember { mutableStateOf("") }
+    val amountState = remember { mutableStateOf(TextFieldValue()) }
+
     val localFocusManager = LocalFocusManager.current
 
     Column(
@@ -73,38 +77,42 @@ fun MainScreen(
             Arrangement.spacedBy(10.dp)
         ) {
             Box(Modifier.weight(1f)) {
-                CurrencyAmountInput(localFocusManager)
+                CurrencyAmountInput(localFocusManager, amountState) {
+                    viewModel.fetchConvertedRates(amountState.value.text, currencyState.value)
+                }
             }
             Box(Modifier.weight(0.4f)) {
                 currencies?.let {
+                    if (currencyState.value.isEmpty()) {
+                        currencyState.value = currencies[0].name
+                    }
+
                     CurrencyList(it) { selectedItem ->
-                        Log.i("test", selectedItem)
+                        currencyState.value = selectedItem
+
+                        viewModel.fetchConvertedRates(amountState.value.text, currencyState.value)
                     }
                 }
             }
         }
-        ConvertedRateList(
-            listOf(
-                ConvertedRate("USD", "12343424.3456"),
-                ConvertedRate("UAH", "7777799013.1234"),
-                ConvertedRate("EUR", "12314324.3456"),
-                ConvertedRate("JPY", "3523423445.1456")
-            )
-        )
+        Content(state, convertedRates)
     }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun CurrencyAmountInput(localFocusManager: FocusManager) {
-    val textState = remember { mutableStateOf(TextFieldValue()) }
+fun CurrencyAmountInput(
+    localFocusManager: FocusManager,
+    amountState: MutableState<TextFieldValue>,
+    onDone: () -> Unit
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     OutlinedTextField(
-        value = textState.value,
+        value = amountState.value,
         singleLine = true,
         onValueChange = {
-            textState.value = it
+            amountState.value = it
         },
         modifier = Modifier.background(Color.White),
         placeholder = {
@@ -112,14 +120,15 @@ fun CurrencyAmountInput(localFocusManager: FocusManager) {
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         keyboardActions = KeyboardActions(
-            onNext = {
+            onDone = {
                 keyboardController?.hide()
                 localFocusManager.clearFocus()
+                onDone.invoke()
             }
         ),
         trailingIcon = {
             IconButton(
-                onClick = { textState.value = TextFieldValue("") },
+                onClick = { amountState.value = TextFieldValue("") },
                 modifier = Modifier.size(20.dp)
             ) {
                 Icon(
@@ -163,7 +172,11 @@ fun CurrencyList(currencies: List<Currency>, onClick: (currencyValue: String) ->
                         },
                         content = {
                             Text(
-                                text = (value.name + " (" + value.description + ")"),
+                                text = stringResource(
+                                    R.string.currency_full_name,
+                                    value.name,
+                                    value.description
+                                ),
                                 modifier = Modifier
                                     .wrapContentWidth()
                             )
@@ -172,7 +185,6 @@ fun CurrencyList(currencies: List<Currency>, onClick: (currencyValue: String) ->
                 }
             }
         }
-
         Spacer(
             modifier = Modifier
                 .matchParentSize()
@@ -182,6 +194,75 @@ fun CurrencyList(currencies: List<Currency>, onClick: (currencyValue: String) ->
                     onClick = { expanded.value = !expanded.value }
                 )
         )
+    }
+}
+
+@Composable
+fun Content(state: CurrencyViewModel.State, convertedRate: List<ConvertedRate>) {
+    when (state) {
+        CurrencyViewModel.State.INIT -> Init()
+        CurrencyViewModel.State.LOADING -> Loading()
+        CurrencyViewModel.State.SUCCESS -> ConvertedRateList(convertedRate)
+        CurrencyViewModel.State.EMPTY -> Empty()
+        CurrencyViewModel.State.ERROR -> Error()
+    }
+}
+
+@Composable
+private fun Init() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = stringResource(R.string.info))
+    }
+}
+
+@Composable
+private fun Loading() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun Empty() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = stringResource(R.string.empty_list))
+    }
+}
+
+@Composable
+private fun Error() {
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val error = stringResource(R.string.rates_loading_error)
+    scope.launch {
+        snackbarHostState.showSnackbar(error)
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SnackbarHost(hostState = snackbarHostState) {
+            Snackbar(
+                snackbarData = it,
+                backgroundColor = Color.Red,
+                contentColor = Color.White
+            )
+        }
     }
 }
 

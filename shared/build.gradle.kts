@@ -69,6 +69,7 @@ kotlin {
                     implementation(viewModel)
                 }
                 implementation(Dependencies.Android.Ktor.client)
+                implementation(Dependencies.Android.Ktor.okHttp)
                 implementation(Dependencies.Android.SqlDelight.androidDriver)
             }
         }
