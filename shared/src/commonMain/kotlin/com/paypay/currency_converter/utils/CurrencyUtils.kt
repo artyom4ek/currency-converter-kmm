@@ -12,7 +12,7 @@ class CurrencyUtils {
             val calculatedRate = (currentRate / selectedRate) * amount
             return calculatedRate.toBigDecimal(
                 decimalMode = DecimalMode(4, RoundingMode.CEILING)
-            ).toString()
+            ).toPlainString()
         }
 
         /**
