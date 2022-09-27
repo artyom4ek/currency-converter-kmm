@@ -2,6 +2,8 @@ import SwiftUI
 import shared
 
 struct MainScreen: View {
+    @ObservedObject var viewModel = CurrencyState()
+    
     @State private var amountCurrency = ""
     
 	var body: some View {
@@ -16,7 +18,7 @@ struct MainScreen: View {
                 .keyboardType(.decimalPad)
                 .font(.title3)
                 .padding(5)
-                CurrencyPicker()
+                CurrencyPicker(currencies: viewModel.currencies)
             }
             Button("Convert") {
                 print($amountCurrency.wrappedValue)
@@ -46,13 +48,14 @@ struct Welcome: View {
 }
 
 struct CurrencyPicker: View {
-    var currencies = ["USD", "UAH", "EUR", "JPY"]
+    var currencies: [Currency]
+    
     @State private var selectedFrameworkIndex = 0
     
     var body: some View {
         Picker(selection: $selectedFrameworkIndex, label: Text("")) {
             ForEach(0 ..< currencies.count, id: \.self) {
-                Text(self.currencies[$0])
+                Text(self.currencies[$0].name)
             }
         }
     }

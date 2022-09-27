@@ -11,7 +11,10 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		8406BAC928D256BB001224E5 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406BAC428D256BB001224E5 /* MainScreen.swift */; };
 		8406BACA28D256BB001224E5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406BAC628D256BB001224E5 /* CustomButton.swift */; };
-		8406BACB28D256BB001224E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8406BAC828D256BB001224E5 /* Preview Assets.xcassets */; };
+		84A1866228DE4E0D008939B4 /* CurrencyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1866128DE4E0D008939B4 /* CurrencyState.swift */; };
+		84A1866628DE529E008939B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A1866528DE529E008939B4 /* Assets.xcassets */; };
+		84A1866A28DE559C008939B4 /* Preview Content in Resources */ = {isa = PBXBuildFile; fileRef = 84A1866928DE559C008939B4 /* Preview Content */; };
+		84A1866C28E1AE55008939B4 /* StatefulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1866B28E1AE55008939B4 /* StatefulView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +37,10 @@
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8406BAC428D256BB001224E5 /* MainScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		8406BAC628D256BB001224E5 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		8406BAC828D256BB001224E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		84A1866128DE4E0D008939B4 /* CurrencyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyState.swift; sourceTree = "<group>"; };
+		84A1866528DE529E008939B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84A1866928DE559C008939B4 /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
+		84A1866B28E1AE55008939B4 /* StatefulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +74,8 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				8406BAC728D256BB001224E5 /* Preview Content */,
+				84A1866928DE559C008939B4 /* Preview Content */,
+				84A1866528DE529E008939B4 /* Assets.xcassets */,
 				8406BAC228D256BB001224E5 /* ui */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -96,6 +103,7 @@
 		8406BAC328D256BB001224E5 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				84A1866128DE4E0D008939B4 /* CurrencyState.swift */,
 				8406BAC428D256BB001224E5 /* MainScreen.swift */,
 			);
 			path = screens;
@@ -105,16 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				8406BAC628D256BB001224E5 /* CustomButton.swift */,
+				84A1866B28E1AE55008939B4 /* StatefulView.swift */,
 			);
 			path = components;
-			sourceTree = "<group>";
-		};
-		8406BAC728D256BB001224E5 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8406BAC828D256BB001224E5 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,7 +178,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8406BACB28D256BB001224E5 /* Preview Assets.xcassets in Resources */,
+				84A1866A28DE559C008939B4 /* Preview Content in Resources */,
+				84A1866628DE529E008939B4 /* Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,6 +213,8 @@
 			files = (
 				8406BAC928D256BB001224E5 /* MainScreen.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				84A1866C28E1AE55008939B4 /* StatefulView.swift in Sources */,
+				84A1866228DE4E0D008939B4 /* CurrencyState.swift in Sources */,
 				8406BACA28D256BB001224E5 /* CustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

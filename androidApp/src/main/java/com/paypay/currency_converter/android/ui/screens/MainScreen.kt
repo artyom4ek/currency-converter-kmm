@@ -44,7 +44,7 @@ import com.paypay.currency_converter.viewModel.CurrencyViewModel
 fun MainScreen(
     viewModel: CurrencyViewModel = get()
 ) {
-    val state = viewModel.state.collectAsState(CurrencyViewModel.State.INIT).value
+    val state = viewModel.state.collectAsState(CurrencyViewModel.State.NORMAL).value
     val currencies = viewModel.currencies.collectAsState().value
     val convertedRates = viewModel.convertedRates.collectAsState().value
 
@@ -200,7 +200,7 @@ fun CurrencyList(currencies: List<Currency>, onClick: (currencyValue: String) ->
 @Composable
 fun Content(state: CurrencyViewModel.State, convertedRate: List<ConvertedRate>) {
     when (state) {
-        CurrencyViewModel.State.INIT -> Init()
+        CurrencyViewModel.State.NORMAL -> Init()
         CurrencyViewModel.State.LOADING -> Loading()
         CurrencyViewModel.State.SUCCESS -> ConvertedRateList(convertedRate)
         CurrencyViewModel.State.EMPTY -> Empty()

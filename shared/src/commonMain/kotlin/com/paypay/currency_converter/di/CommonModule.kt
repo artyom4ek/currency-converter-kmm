@@ -27,7 +27,7 @@ fun commonModule() = module {
     single { get<CurrencyDatabase>().currencyQueries }
     single<CurrencyRepository> {
         CurrencyRepositoryImpl(
-            Dispatchers.Default,
+            Dispatchers.Main,
             get(),
             get(),
             get(),
@@ -36,7 +36,7 @@ fun commonModule() = module {
         )
     }
     single { CurrencyUseCase(get()) }
-    single { CurrencyViewModel(get()) }
+    single { CurrencyViewModel() }
 }
 
 expect fun platformModule(): Module
