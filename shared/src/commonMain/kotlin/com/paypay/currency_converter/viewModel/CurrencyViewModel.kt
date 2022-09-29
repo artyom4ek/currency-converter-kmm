@@ -42,6 +42,26 @@ class CurrencyViewModel : SharedViewModel(), KoinComponent {
         }.launchIn(coroutineScope)
     }
 
+    /**
+     * Convenience method for iOS observing the [convertedRates]
+     */
+    @Suppress("unused")
+    fun observeConvertedRates(onChange: (List<ConvertedRate>?) -> Unit) {
+        convertedRates.onEach {
+            onChange(it)
+        }.launchIn(coroutineScope)
+    }
+
+    /**
+     * Convenience method for iOS observing the [state]
+     */
+    @Suppress("unused")
+    fun observeState(onChange: (State) -> Unit) {
+        state.onEach {
+            onChange(it)
+        }.launchIn(coroutineScope)
+    }
+
     fun fetchConvertedRates(enteredAmount: String, selectedCurrency: String) {
         coroutineScope.launch {
             try {
