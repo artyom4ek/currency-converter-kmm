@@ -1,18 +1,18 @@
 package com.paypay.currency_converter.viewModel
 
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
+
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 import com.paypay.currency_converter.domain.model.Currency
 import com.paypay.currency_converter.domain.model.ConvertedRate
 import com.paypay.currency_converter.domain.usecase.CurrencyUseCase
 
-class CurrencyViewModel constructor(
-    private val currencyUseCase: CurrencyUseCase
-) : SharedViewModel() {
+class CurrencyViewModel : SharedViewModel(), KoinComponent {
+    private val currencyUseCase: CurrencyUseCase by inject()
+
     private val _currencies = MutableStateFlow<List<Currency>?>(null)
     val currencies: StateFlow<List<Currency>?> = _currencies
 
@@ -32,6 +32,36 @@ class CurrencyViewModel constructor(
         }
     }
 
+    /**
+     * Convenience method for iOS observing the [currencies]
+     */
+    @Suppress("unused")
+    fun observeCurrencies(onChange: (List<Currency>?) -> Unit) {
+        currencies.onEach {
+            onChange(it)
+        }.launchIn(coroutineScope)
+    }
+
+    /**
+     * Convenience method for iOS observing the [convertedRates]
+     */
+    @Suppress("unused")
+    fun observeConvertedRates(onChange: (List<ConvertedRate>?) -> Unit) {
+        convertedRates.onEach {
+            onChange(it)
+        }.launchIn(coroutineScope)
+    }
+
+    /**
+     * Convenience method for iOS observing the [state]
+     */
+    @Suppress("unused")
+    fun observeState(onChange: (State) -> Unit) {
+        state.onEach {
+            onChange(it)
+        }.launchIn(coroutineScope)
+    }
+
     fun fetchConvertedRates(enteredAmount: String, selectedCurrency: String) {
         coroutineScope.launch {
             try {
@@ -48,7 +78,8 @@ class CurrencyViewModel constructor(
 
                 _state.emit(State.LOADING)
 
-                val convertedRates = currencyUseCase.fetchConvertedRates(parsedAmount, selectedCurrency)
+                val convertedRates =
+                    currencyUseCase.fetchConvertedRates(parsedAmount, selectedCurrency)
                 if (convertedRates.isNotEmpty()) {
                     _convertedRates.emit(convertedRates)
                     _state.emit(State.SUCCESS)
@@ -63,7 +94,7 @@ class CurrencyViewModel constructor(
     }
 
     enum class State {
-        INIT,
+        NORMAL,
         LOADING,
         SUCCESS,
         EMPTY,
