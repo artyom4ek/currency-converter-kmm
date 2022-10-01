@@ -3,6 +3,7 @@ buildscript {
         mavenCentral()
         gradlePluginPortal()
         google()
+        gradlePluginPortal()
     }
     dependencies {
         with(Dependencies.Plugins) {
@@ -10,6 +11,7 @@ buildscript {
             classpath(gradle)
             classpath(buildKonfig)
             classpath(sqlDelight)
+            classpath(resourcesGenerator)
         }
     }
 }

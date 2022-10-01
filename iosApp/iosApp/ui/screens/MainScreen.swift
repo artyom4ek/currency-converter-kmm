@@ -12,7 +12,7 @@ struct MainScreen: View {
             Welcome()
             HStack {
                 TextField(
-                    "###.##",
+                    MR.strings().amount_placeholder.desc().localized(),
                     text: $amountCurrency
                 )
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -31,7 +31,7 @@ struct MainScreen: View {
                     
                 })
             }
-            Button("Convert") {
+            Button(MR.strings().convert.desc().localized()) {
                 viewModel.fetchConvertedRates(
                     amount: amountCurrency,
                     currency: selectedCurrency
@@ -52,7 +52,7 @@ struct MainScreen: View {
 
 struct Welcome: View {
     var body: some View {
-        Text("Currency Converter")
+        Text(MR.strings().app_name.desc().localized())
             .multilineTextAlignment(.center)
             .font(.system(size: 22))
     }
@@ -66,7 +66,7 @@ struct MainContent: View {
         switch state {
         case ViewState.normal:
             ZStack{
-                Text("Please, enter amount and press Convert")
+                Text(MR.strings().info_ios.desc().localized())
                     .multilineTextAlignment(.center)
                     .font(.system(size: 16))
             }
@@ -86,7 +86,7 @@ struct MainContent: View {
             )
         case ViewState.error:
             ZStack{
-                Text("Error, enter correct data")
+                Text(MR.strings().enter_correct_data.desc().localized())
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.red)
                     .font(.system(size: 16))
@@ -100,7 +100,7 @@ struct MainContent: View {
             ConvertedRateList(convertedRates: convertedRates)
         case ViewState.empty:
             ZStack{
-                Text("No data yet...")
+                Text(MR.strings().empty_list.desc().localized())
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.red)
                     .font(.system(size: 16))

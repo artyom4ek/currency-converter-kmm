@@ -9,6 +9,7 @@ object Dependencies {
         const val buildKonfig =
             "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
         const val sqlDelight = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
+        const val resourcesGenerator = "dev.icerock.moko:resources-generator:${Versions.mokoResources}"
     }
 
     object Common {
@@ -21,6 +22,8 @@ object Dependencies {
                 "com.ionspin.kotlin:bignum:${Versions.bigNum}"
             const val multiplatformSettings =
                 "com.russhwolf:multiplatform-settings-no-arg:${Versions.multiplatformSettings}"
+            const val mokoResources =
+                "dev.icerock.moko:resources:${Versions.mokoResources}"
         }
 
         object Koin {
@@ -48,6 +51,8 @@ object Dependencies {
             const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
             const val activityKtx = "androidx.activity:activity-ktx:${Versions.activityKtx}"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModel}"
+            const val runtimeCompose =
+                "androidx.lifecycle:lifecycle-runtime-compose:${Versions.runtimeCompose}"
         }
 
         object Ktor {

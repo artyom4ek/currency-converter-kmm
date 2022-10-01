@@ -4,6 +4,7 @@ plugins {
     id("com.codingfeline.buildkonfig")
     id("com.squareup.sqldelight")
     id("com.android.library")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -59,6 +60,7 @@ kotlin {
                     implementation(serialization)
                 }
                 implementation(Dependencies.Common.SqlDelight.runtime)
+                api(Dependencies.Common.Core.mokoResources)
             }
         }
         val commonTest by getting
@@ -67,9 +69,12 @@ kotlin {
                 with(Dependencies.Android.Core) {
                     implementation(coreKtx)
                     implementation(viewModel)
+                    implementation(runtimeCompose)
                 }
-                implementation(Dependencies.Android.Ktor.client)
-                implementation(Dependencies.Android.Ktor.okHttp)
+                with(Dependencies.Android.Ktor) {
+                    implementation(client)
+                    implementation(okHttp)
+                }
                 implementation(Dependencies.Android.SqlDelight.androidDriver)
             }
         }
@@ -88,6 +93,13 @@ kotlin {
             dependsOn(iosTest)
         }
     }
+
+    // Export correct artifact to use all classes of moko-resources directly from Swift
+    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
+        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
+            export(Dependencies.Common.Core.mokoResources)
+        }
+    }
 }
 
 buildkonfig {
@@ -95,6 +107,10 @@ buildkonfig {
     defaultConfigs {
         buildConfigField(Type.STRING, "APP_ID", project.properties["APP_ID"].toString())
     }
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.paypay.currency_converter"
+    disableStaticFrameworkWarning = true
 }
 
 sqldelight {

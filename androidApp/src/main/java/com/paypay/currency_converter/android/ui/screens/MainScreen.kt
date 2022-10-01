@@ -215,7 +215,7 @@ private fun Init() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(R.string.info))
+        Text(text = stringResource(R.string.info_android))
     }
 }
 
