@@ -53,7 +53,10 @@ kotlin {
                     implementation(bigNum)
                     implementation(multiplatformSettings)
                 }
-                api(Dependencies.Common.Koin.core)
+                with(Dependencies.Common.Koin) {
+                    api(core)
+                    api(test)
+                }
                 with(Dependencies.Common.Ktor) {
                     implementation(core)
                     implementation(contentNegotiation)
@@ -63,7 +66,15 @@ kotlin {
                 api(Dependencies.Common.Core.mokoResources)
             }
         }
-        val commonTest by getting
+        val commonTest by getting {
+            dependencies {
+                with(Dependencies.Common.Test) {
+                    implementation(kotlin(testCommon))
+                    implementation(kotlin(testAnnotationsCommon))
+                }
+                implementation(Dependencies.Common.Koin.test)
+            }
+        }
         val androidMain by getting {
             dependencies {
                 with(Dependencies.Android.Core) {
@@ -133,4 +144,5 @@ android {
 
 dependencies {
     testImplementation(Dependencies.Common.Test.jUnit)
+    testImplementation(Dependencies.Common.Test.testng)
 }
