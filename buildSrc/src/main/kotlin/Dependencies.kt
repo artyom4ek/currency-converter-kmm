@@ -9,7 +9,8 @@ object Dependencies {
         const val buildKonfig =
             "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
         const val sqlDelight = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
-        const val resourcesGenerator = "dev.icerock.moko:resources-generator:${Versions.mokoResources}"
+        const val resourcesGenerator =
+            "dev.icerock.moko:resources-generator:${Versions.mokoResources}"
     }
 
     object Common {
@@ -28,6 +29,7 @@ object Dependencies {
 
         object Koin {
             const val core = "io.insert-koin:koin-core:${Versions.koin}"
+            const val test = "io.insert-koin:koin-test:${Versions.koin}"
         }
 
         object Ktor {
@@ -42,7 +44,10 @@ object Dependencies {
         }
 
         object Test {
+            const val testCommon = "test-common"
+            const val testAnnotationsCommon = "test-annotations-common"
             const val jUnit = "junit:junit:${Versions.jUnit}"
+            const val testng = "org.testng:testng:${Versions.testng}"
         }
     }
 
