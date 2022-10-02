@@ -6,6 +6,7 @@ object Versions {
     const val activityKtx = "1.5.1"
     const val viewModel = "2.5.1"
     const val runtimeCompose = "2.6.0-alpha02"
+    const val guava = "31.1-android"
     const val ktor = "2.1.0"
     const val coroutines = "1.6.4"
     const val multiplatformSettings = "0.9"
