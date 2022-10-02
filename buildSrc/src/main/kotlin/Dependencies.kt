@@ -53,6 +53,7 @@ object Dependencies {
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModel}"
             const val runtimeCompose =
                 "androidx.lifecycle:lifecycle-runtime-compose:${Versions.runtimeCompose}"
+            const val guava = "com.google.guava:guava:${Versions.guava}"
         }
 
         object Ktor {

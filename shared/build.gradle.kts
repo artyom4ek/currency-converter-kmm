@@ -70,6 +70,7 @@ kotlin {
                     implementation(coreKtx)
                     implementation(viewModel)
                     implementation(runtimeCompose)
+                    implementation(guava)
                 }
                 with(Dependencies.Android.Ktor) {
                     implementation(client)
