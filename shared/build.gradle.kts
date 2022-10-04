@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version Versions.kotlin
@@ -117,8 +120,13 @@ kotlin {
 buildkonfig {
     packageName = "com.paypay.currency_converter"
     defaultConfigs {
-        buildConfigField(Type.STRING, "APP_ID", project.properties["APP_ID"].toString())
+        buildConfigField(
+            Type.STRING,
+            "APP_ID",
+            gradleLocalProperties(rootDir).getProperty("APP_ID")
+        )
     }
+}
 
 multiplatformResources {
     multiplatformResourcesPackage = "com.paypay.currency_converter"
