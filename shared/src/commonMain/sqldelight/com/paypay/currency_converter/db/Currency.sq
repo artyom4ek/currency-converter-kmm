@@ -1,0 +1,13 @@
+CREATE TABLE RateEntity (
+  name TEXT NOT NULL PRIMARY KEY,
+  currentValue REAL NOT NULL
+);
+
+getRates:
+SELECT * FROM RateEntity ORDER BY name;
+
+insertRate:
+INSERT INTO RateEntity VALUES ?;
+
+deleteRates:
+DELETE FROM RateEntity;

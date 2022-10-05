@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">通貨換算</string>
+    <string name="amount_placeholder">###.##</string>
+    <string name="convert">変換</string>
+    <string name="info_android">金額を入力し、キーボードの [次へ] を押してください。</string>
+    <string name="info_ios">金額を入力して変換を押してください</string>
+    <string name="empty_list">まだデータがありません</string>
+    <string name="rates_loading_error">料金の読み込みエラー</string>
+    <string name="enter_correct_data">エラー、正しいデータを入力してください</string>
+    <string name="currency_full_name">%1$s (%2$s)</string>
+    <string name="clear">クリア</string>
+</resources>
