@@ -17,6 +17,8 @@ object Dependencies {
         object Core {
             const val coroutines =
                 "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+            const val coroutinesTest =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
             const val dateTime =
                 "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.dateTime}"
             const val bigNum =
