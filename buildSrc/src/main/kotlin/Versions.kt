@@ -9,7 +9,7 @@ object Versions {
     const val guava = "31.1-android"
     const val ktor = "2.1.0"
     const val coroutines = "1.6.4"
-    const val multiplatformSettings = "0.9"
+    const val multiplatformSettings = "1.0.0-RC"
     const val jUnit = "4.13.2"
     const val testng = "7.4.0"
     const val koin = "3.2.0"
