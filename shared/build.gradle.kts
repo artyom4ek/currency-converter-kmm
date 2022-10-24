@@ -156,6 +156,7 @@ android {
 }
 
 dependencies {
+    implementation(Dependencies.Android.Test.testCoreKtx)
     testImplementation(Dependencies.Common.Test.jUnit)
     testImplementation(Dependencies.Common.Test.testng)
 }

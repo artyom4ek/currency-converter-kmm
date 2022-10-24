@@ -10,6 +10,7 @@ object Versions {
     const val ktor = "2.1.0"
     const val coroutines = "1.6.4"
     const val multiplatformSettings = "1.0.0-RC"
+    const val testCoreKtx = "1.4.0"
     const val jUnit = "4.13.2"
     const val testng = "7.4.0"
     const val roboelectric = "4.9"

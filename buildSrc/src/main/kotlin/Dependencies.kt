@@ -91,6 +91,7 @@ object Dependencies {
 
         object Test {
             const val roboelectric = "org.robolectric:robolectric:${Versions.roboelectric}"
+            const val testCoreKtx = "androidx.test:core-ktx:${Versions.testCoreKtx}"
         }
     }
 
