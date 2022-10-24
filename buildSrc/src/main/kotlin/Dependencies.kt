@@ -17,6 +17,8 @@ object Dependencies {
         object Core {
             const val coroutines =
                 "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+            const val coroutinesTest =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
             const val dateTime =
                 "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.dateTime}"
             const val bigNum =
@@ -85,6 +87,11 @@ object Dependencies {
         object Koin {
             const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
             const val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
+        }
+
+        object Test {
+            const val roboelectric = "org.robolectric:robolectric:${Versions.roboelectric}"
+            const val testCoreKtx = "androidx.test:core-ktx:${Versions.testCoreKtx}"
         }
     }
 

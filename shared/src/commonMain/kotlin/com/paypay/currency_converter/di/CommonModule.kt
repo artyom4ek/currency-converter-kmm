@@ -18,7 +18,6 @@ import com.paypay.currency_converter.domain.usecase.CurrencyUseCase
 import com.paypay.currency_converter.viewModel.CurrencyViewModel
 
 fun commonModule() = module {
-    factory { Settings() }
     factory { Mapper() }
     single { LocalSettings(get()) }
     factory { provideHttpClient() }
@@ -39,4 +38,4 @@ fun commonModule() = module {
     single { CurrencyViewModel() }
 }
 
-expect fun platformModule(): Module
+expect fun platformModule(isTest: Boolean = false): Module
