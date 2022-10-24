@@ -12,6 +12,7 @@ object Versions {
     const val multiplatformSettings = "1.0.0-RC"
     const val jUnit = "4.13.2"
     const val testng = "7.4.0"
+    const val roboelectric = "4.9"
     const val koin = "3.2.0"
     const val sqlDelight = "1.5.3"
     const val mokoResources = "0.20.1"
