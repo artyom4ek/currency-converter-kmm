@@ -19,17 +19,19 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.paypay.currency_converter.db.CurrencyDatabase
 import com.paypay.currency_converter.utils.Language
 
-actual fun platformModule(): Module = module {
+actual fun platformModule(isTest: Boolean): Module = module {
     single<Settings> {
         SharedPreferencesSettings(
-            PreferenceManager.getDefaultSharedPreferences(get())
+            PreferenceManager.getDefaultSharedPreferences(
+                if(isTest) ApplicationProvider.getApplicationContext() else get()
+            )
         )
     }
     factory<Language> { Locale.getDefault().language }
     single<SqlDriver> {
         AndroidSqliteDriver(
             CurrencyDatabase.Schema,
-            get(),
+            if(isTest) ApplicationProvider.getApplicationContext() else get(),
             "currency.db"
         )
     }
