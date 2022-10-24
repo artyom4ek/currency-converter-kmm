@@ -94,7 +94,11 @@ kotlin {
                 implementation(Dependencies.Android.SqlDelight.androidDriver)
             }
         }
-        val androidTest by getting
+        val androidTest by getting {
+            dependencies {
+                implementation(Dependencies.Android.Test.roboelectric)
+            }
+        }
         val iosMain by getting {
             dependencies {
                 implementation(Dependencies.Ios.Ktor.client)
@@ -152,6 +156,7 @@ android {
 }
 
 dependencies {
+    implementation(Dependencies.Android.Test.testCoreKtx)
     testImplementation(Dependencies.Common.Test.jUnit)
     testImplementation(Dependencies.Common.Test.testng)
 }

@@ -1,23 +1,31 @@
 package com.paypay.currency_converter
 
+import kotlin.test.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.*
-import kotlin.test.*
 
+import org.junit.runner.RunWith
+
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-import com.paypay.currency_converter.di.initKoin
+import org.robolectric.RobolectricTestRunner
+
+import com.paypay.currency_converter.di.commonModule
+import com.paypay.currency_converter.di.platformModule
 import com.paypay.currency_converter.viewModel.CurrencyViewModel
 
 /**
  * Demonstration of the basic functions of validating the input field for the amount of currency.
  */
+@RunWith(RobolectricTestRunner::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class ViewModelTest : KoinTest {
     private val viewModel: CurrencyViewModel by inject()
@@ -26,7 +34,14 @@ class ViewModelTest : KoinTest {
     @BeforeTest
     fun setUp() {
         Dispatchers.setMain(dispatcher)
-        initKoin()
+        startKoin {
+            loadKoinModules(
+                listOf(
+                    platformModule(true),
+                    commonModule()
+                )
+            )
+        }
     }
 
     @AfterTest

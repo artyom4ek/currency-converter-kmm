@@ -18,7 +18,7 @@ import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import com.paypay.currency_converter.db.CurrencyDatabase
 import com.paypay.currency_converter.utils.Language
 
-actual fun platformModule(): Module = module {
+actual fun platformModule(isTest: Boolean): Module = module {
     single {
         NSUserDefaultsSettings(NSUserDefaults.standardUserDefaults)
     }

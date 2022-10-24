@@ -38,4 +38,4 @@ fun commonModule() = module {
     single { CurrencyViewModel() }
 }
 
-expect fun platformModule(): Module
+expect fun platformModule(isTest: Boolean = false): Module
